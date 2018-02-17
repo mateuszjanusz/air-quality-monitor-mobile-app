@@ -1,3 +1,101 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Marketplace
+Explore
+ @mateuszjanusz
+ Sign out
+ Watch 3,379
+  Star 59,924  Fork 13,788 facebook/react-native
+ Code  Issues 556  Pull requests 144  Projects 9  Wiki  Insights
+Branch: master Find file Copy pathreact-native/.gitignore
+fa11fae  11 days ago
+@hramos hramos Switch e2e to yarn
+14 contributors @mkonicek @janicduplessis @vjeux @hramos @bestander @sahrens @nihgwu @lacker @ide @ianlevesque @enaqx @eddiemonge @sophiebits @frantic
+RawBlameHistory     
+68 lines (58 sloc)  1.04 KB
+# Xcode
+!**/*.xcodeproj
+!**/*.pbxproj
+!**/*.xcworkspacedata
+!**/*.xcsettings
+!**/*.xcscheme
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+project.xcworkspace
+
+# Gradle
+/build/
+/RNTester/android/app/build/
+/RNTester/android/app/gradle/
+/RNTester/android/app/gradlew
+/RNTester/android/app/gradlew.bat
+/ReactAndroid/build/
+
+# Buck
+.buckd
+buck-out
+/ReactAndroid/src/main/jni/prebuilt/lib/armeabi-v7a/
+/ReactAndroid/src/main/jni/prebuilt/lib/x86/
+/ReactAndroid/src/main/gen
+
+# Watchman
+.watchmanconfig
+
+# Android
+.idea
+.gradle
+local.properties
+*.iml
+/android/
+
+# Node
+node_modules
+*.log
+.nvm
+/bots/node_modules/
+
+# TODO: Check in yarn.lock in open source. Right now we need to keep it out
+# from the GitHub repo as importing it might conflict with internal workspaces
+*/**/yarn.lock
+
+# OS X
+.DS_Store
+
+# Test generated files
+/ReactAndroid/src/androidTest/assets/AndroidTestBundle.js
+*.js.meta
+
+/coverage
+/third-party
+© 2018 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+API
+Training
+Shop
+Blog
+About
+
 # Logs
 logs
 *.log
