@@ -7,53 +7,86 @@ import {
     View
 } from 'react-native';
 
-// const instructions = Platform.select({
-//     ios: 'Press Cmd+R to reload,\n' +
-//         'Cmd+D or shake for dev menu',
-//     android: 'Double tap R on your keyboard to reload,\n' +
-//         'Shake or press menu button for dev menu',
-// });
-const dimensions = Dimensions.get('window');
-const width = dimensions.width
-const half_width = width/2
-const third_height = dimensions.height/3
+import ScoreMedium from './components/ScoreMedium';
+import ScoreSmall from './components/ScoreSmall';
+
+
+// const dimensions = Dimensions.get('window');
+// const width = dimensions.width
+// const half_width = width/2
+// const third_height = dimensions.height/3
+
+async function getCurrentReadings() {
+    try {
+        let response = await fetch(
+          'https://indoor-air-quality.herokuapp.com/now'
+        )
+        let response_json = await response.json();
+        return response_json[0]
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 type Props = {};
 
 export default class App extends Component {
     
     constructor(props) {
         super(props)
+        this.state = {};
+    }
+
+    async componentDidMount(){
+        const current = await getCurrentReadings()
+        console.log(current)
+        this.setState({current}) 
     }
 
     render() {
 
-        return ( 
+        if(!this.state.current){
+            return (
+                <View style={styles.container}>
+                    <Text>loading...</Text>
+                </View>
+            )
+        }
+
+        const current = this.state.current
+        const ts = new Date(current.timestamp)
+        // let date = ts.getDate() + '/'
+        // date += ts.getMonth() < 9 ? '0'+ts.getMonth() : ts.getMonth()
+        // date +='/'+ts.getFullYear()
+        const date = current.timestamp.replace('T', ' ').slice(0, 19)
+
+        return (
             <View style={styles.container}>
-                <Text style={styles.header_text}>Air Quality Monitor</Text> 
-                <View style={styles.column}>
-                    <View style={styles.row}>
-                        <View style={styles.box}>
-                            <Text>1</Text>
-                        </View>
-                        <View style={styles.box}>
-                            <Text>2</Text>
-                        </View>
+                <View style={styles.row}>
+                    <View style={styles.overallContainer}>
+                        <Text style={[styles.overallScore, styles.yellow]}>80</Text>
                     </View>
-                    <View style={styles.row}>
-                        <View style={styles.box}>
-                            <Text>3</Text>
-                        </View>
-                        <View style={styles.box}>
-                            <Text>4</Text>
-                        </View>
-                    </View>
-                    <View style={styles.bottom_box}>
-                        <Text>5</Text>
+                    <View style={[styles.column, {justifyContent: 'space-between'}]}>
+                        <ScoreMedium score={current.temp} description="Temperature" symbol="°C" color={styles.green}/>
+                        <ScoreMedium score={current.humidity} description="Humidity" symbol="%" color={styles.red}/>
+                        <ScoreMedium score={current.pressure} description="Pressure" symbol="hPa" color={styles.green}/>
                     </View>
                 </View>
-                
+                <View style={styles.row}>
+                    <View style={styles.column}>
+                        <ScoreSmall score={current.dust} description="Dust" symbol="mg/m3" color={styles.yellow}/>
+                        <ScoreSmall score={current.dust} description="CO" symbol="ppm" color={styles.green}/>
+                    </View>
+                    <View style={styles.column}>
+                        <ScoreSmall score={current.smoke} overall="GOOD" description="Smoke" symbol="ppm" color={styles.green}/>
+                        <ScoreSmall score={current.lpg} overall="OK" description="LPG" symbol="ppm" color={styles.green}/>
+                    </View>
+                </View>
+                <View style={styles.row}>
+                    <Text style={styles.smallText}>Last updated {date}</Text>
+                </View>
             </View>
-        );
+        )
     }
 }
 
@@ -61,41 +94,47 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: 30,
+        padding: 8,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#2C2E38',
     },
     row: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        paddingLeft: 15,
+        justifyContent: 'space-around',
+        alignItems: 'center',
         flexDirection: 'row',
-        backgroundColor: '#F5FCFF',
     },
     column: {
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: 'space-around',
         alignItems: 'flex-start',
         flexDirection: 'column',
-        backgroundColor: '#F5FCFF',
     },
-    header_text: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    box: {
+
+    overallContainer: {
         flex: 1,
-        backgroundColor: 'lightblue',
-        borderWidth: 1,
-        width: half_width,
-        height: third_height
+        justifyContent: 'space-around',
+        alignItems: 'center',
     },
-    bottom_box: {
-        flex: 1,
-        backgroundColor: 'lightblue',
-        borderWidth: 1,
-        width: width,
-        height: third_height
+    overallScore: {
+        fontSize: 45,
     },
+
+    smallText: {
+        fontSize: 10,
+        color: '#B2BBD1',
+    },
+   
+    green: {
+        color: '#4F9B51'
+    },
+    yellow: {
+        color: '#ECB02F'
+    },
+    red: {
+        color: '#C03221'
+    }
 });
