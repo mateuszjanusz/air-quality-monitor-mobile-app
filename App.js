@@ -7,8 +7,11 @@ import {
     View
 } from 'react-native';
 
+import moment from 'moment'
+
 import ScoreMedium from './components/ScoreMedium';
 import ScoreSmall from './components/ScoreSmall';
+import Date from './components/Date';
 
 
 // const dimensions = Dimensions.get('window');
@@ -22,7 +25,7 @@ async function getCurrentReadings() {
           'https://indoor-air-quality.herokuapp.com/now'
         )
         let response_json = await response.json();
-        return response_json[0]
+        return response_json
     } catch (error) {
         console.error(error)
     }
@@ -39,8 +42,12 @@ export default class App extends Component {
 
     async componentDidMount(){
         const current = await getCurrentReadings()
-        console.log(current)
-        this.setState({current}) 
+        const today = moment().format('dddd, Do MMMM')
+
+        this.setState({
+            current,
+            today
+        }) 
     }
 
     render() {
@@ -54,14 +61,11 @@ export default class App extends Component {
         }
 
         const current = this.state.current
-        const ts = new Date(current.timestamp)
-        // let date = ts.getDate() + '/'
-        // date += ts.getMonth() < 9 ? '0'+ts.getMonth() : ts.getMonth()
-        // date +='/'+ts.getFullYear()
-        const date = current.timestamp.replace('T', ' ').slice(0, 19)
+        const last_updated = moment(current.timestamp).fromNow()
 
         return (
             <View style={styles.container}>
+                <Date date={this.state.today} />
                 <View style={styles.row}>
                     <View style={styles.overallContainer}>
                         <Text style={[styles.overallScore, styles.yellow]}>80</Text>
@@ -83,7 +87,7 @@ export default class App extends Component {
                     </View>
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.smallText}>Last updated {date}</Text>
+                    <Text style={styles.smallText}>Last updated {last_updated}</Text>
                 </View>
             </View>
         )
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         padding: 8,
         justifyContent: 'flex-start',
-        alignItems: 'center',
+        // alignItems: 'center',
         backgroundColor: '#2C2E38',
     },
     row: {
@@ -113,7 +117,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         flexDirection: 'column',
     },
-
     overallContainer: {
         flex: 1,
         justifyContent: 'space-around',
