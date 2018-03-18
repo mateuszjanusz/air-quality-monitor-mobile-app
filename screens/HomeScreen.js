@@ -4,11 +4,13 @@ import {
     Dimensions,
     StyleSheet,
     Text,
-    View
+    View,
+    ActivityIndicator
 } from 'react-native';
 
 import moment from 'moment'
 
+import ScoreCircle from '../components/ScoreCircle';
 import ScoreMedium from '../components/ScoreMedium';
 import ScoreSmall from '../components/ScoreSmall';
 import Date from '../components/Date';
@@ -46,8 +48,8 @@ export default class HomeScreen extends Component {
 
         if(!this.state.current){
             return (
-                <View style={styles.container}>
-                    <Text>loading...</Text>
+                <View style={[styles.container, {justifyContent: 'center'}]}>
+                    <ActivityIndicator size="large" color="#f7f7f7" />
                 </View>
             )
         }
@@ -60,7 +62,7 @@ export default class HomeScreen extends Component {
                 <Date date={this.state.today} />
                 <View style={styles.row}>
                     <View style={styles.overallContainer}>
-                        <Text style={[styles.overallScore, styles.yellow]}>80</Text>
+                        <ScoreCircle score={75}/>
                     </View>
                     <View style={[styles.column, {justifyContent: 'space-between'}]}>
                         <ScoreMedium score={current.temp} description="Temperature" symbol="°C" color={styles.green}/>
@@ -90,7 +92,7 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 30,
+        paddingTop: 20,
         padding: 8,
         justifyContent: 'flex-start',
         // alignItems: 'center',

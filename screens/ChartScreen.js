@@ -3,14 +3,20 @@ import {
     Dimensions,
     StyleSheet,
     Text,
-    View
+    View,
+    Picker
 } from 'react-native';
+import { LineChart } from 'react-native-svg-charts'
 
 
 export default class ChartScreen extends Component {
     constructor(props) {
         super(props)
-        this.state = {};
+        this.state = {
+            time_frame: 7,
+            top_chart_type: 'temp',
+            bottom_chart_type: 'humidity'
+        };
     }
 
     async componentDidMount(){
@@ -20,7 +26,34 @@ export default class ChartScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Hello I am chart view</Text>
+                <View>
+                    <Picker style={styles.picker}
+                        selectedValue={this.state.time_frame}
+                        onValueChange={(itemValue, itemIndex) => this.setState({time_frame: itemValue})}
+                        >
+                            <Picker.Item label="Today" value="1" />
+                            <Picker.Item label="Last 7 days" value="7" />
+                            <Picker.Item label="Last 30 days" value="30" />
+                    </Picker>
+                </View>
+
+                <Picker style={styles.picker}
+                    selectedValue={this.state.top_chart_type}
+                    onValueChange={(itemValue, itemIndex) => this.setState({top_chart_type: itemValue})}
+                    >
+                        <Picker.Item label="Temperature" value="temp" />
+                        <Picker.Item label="Humidity" value="humidity" />
+                        <Picker.Item label="Dust Density" value="dust" />
+                </Picker>
+
+                <Picker style={styles.picker}
+                    selectedValue={this.state.bottom_chart_type}
+                    onValueChange={(itemValue, itemIndex) => this.setState({bottom_chart_type: itemValue})}
+                    >
+                        <Picker.Item label="Temperature" value="temp" />
+                        <Picker.Item label="Humidity" value="humidity" />
+                        <Picker.Item label="Dust Density" value="dust" />
+                </Picker>
             </View>
         )
     }
@@ -30,7 +63,7 @@ export default class ChartScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 30,
+        paddingTop: 20,
         padding: 8,
         justifyContent: 'flex-start',
         // alignItems: 'center',
@@ -49,7 +82,9 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         flexDirection: 'column',
     },
-   
+    picker: {
+        color: 'white'
+    },
     green: {
         color: '#4F9B51'
     },
