@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react';
 import {
     Dimensions,
     Text,
@@ -7,7 +7,7 @@ import {
 
 import { ProgressCircle }  from 'react-native-svg-charts'
 
-class ScoreCircle extends React.PureComponent {
+class ScoreCircle extends Component {
     render() {
     	const {height, width} = Dimensions.get('window')
     	const color = '#ECB02F'

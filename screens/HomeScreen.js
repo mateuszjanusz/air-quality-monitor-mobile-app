@@ -9,11 +9,13 @@ import {
 } from 'react-native';
 
 import moment from 'moment'
+import colors from '../colors'
 
 import ScoreCircle from '../components/ScoreCircle';
 import ScoreMedium from '../components/ScoreMedium';
 import ScoreSmall from '../components/ScoreSmall';
-import Date from '../components/Date';
+import DateText from '../components/Date';
+import WeatherBlock from '../components/WeatherBlock';
 
 async function getCurrentReadings() {
     try {
@@ -49,7 +51,7 @@ export default class HomeScreen extends Component {
         if(!this.state.current){
             return (
                 <View style={[styles.container, {justifyContent: 'center'}]}>
-                    <ActivityIndicator size="large" color="#f7f7f7" />
+                    <ActivityIndicator size="large" color={colors.text} />
                 </View>
             )
         }
@@ -59,30 +61,34 @@ export default class HomeScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <Date date={this.state.today} />
+                <DateText date={this.state.today} />
                 <View style={styles.row}>
                     <View style={styles.overallContainer}>
-                        <ScoreCircle score={75}/>
+                        <ScoreCircle score={75} />
                     </View>
-                    <View style={[styles.column, {justifyContent: 'space-between'}]}>
-                        <ScoreMedium score={current.temp} description="Temperature" symbol="°C" color={styles.green}/>
-                        <ScoreMedium score={current.humidity} description="Humidity" symbol="%" color={styles.red}/>
-                        <ScoreMedium score={current.pressure} description="Pressure" symbol="hPa" color={styles.green}/>
+                    <View style={[styles.column, {justifyContent: 'space-between', paddingLeft: 30}]}>
+                        <ScoreMedium score={current.temp} description="Temperature" symbol="°C" />
+                        <ScoreMedium score={current.humidity} description="Humidity" symbol="%" />
+                        <ScoreMedium score={current.pressure} description="Pressure" symbol="hPa" />
                     </View>
                 </View>
                 <View style={styles.row}>
                     <View style={styles.column}>
-                        <ScoreSmall score={current.dust} description="Dust" symbol="mg/m3" color={styles.yellow}/>
-                        <ScoreSmall score={current.dust} description="CO" symbol="ppm" color={styles.green}/>
+                        <ScoreSmall score={current.dust} description="Dust Density" symbol="mg/m3" />
+                        <ScoreSmall score={current.co} description="CO" symbol="ppm" />
                     </View>
                     <View style={styles.column}>
-                        <ScoreSmall score={current.smoke} overall="GOOD" description="Smoke" symbol="ppm" color={styles.green}/>
-                        <ScoreSmall score={current.lpg} overall="OK" description="LPG" symbol="ppm" color={styles.green}/>
+                        <ScoreSmall score={current.smoke} description="Smoke" symbol="ppm" />
+                        <ScoreSmall score={current.lpg} description="LPG" symbol="ppm" />
                     </View>
                 </View>
-                <View style={styles.row}>
+                <View style={[styles.row,{paddingTop: 15}]}>
                     <Text style={styles.smallText}>Last updated {last_updated}</Text>
                 </View>
+                <View style={styles.row}>
+                    <WeatherBlock />
+                </View>
+                
             </View>
         )
     }
@@ -96,42 +102,25 @@ const styles = StyleSheet.create({
         padding: 8,
         justifyContent: 'flex-start',
         // alignItems: 'center',
-        backgroundColor: '#2C2E38',
+        backgroundColor: colors.background,
     },
     row: {
-        flex: 1,
-        paddingLeft: 15,
         justifyContent: 'space-around',
         alignItems: 'center',
         flexDirection: 'row',
     },
     column: {
-        flex: 1,
         justifyContent: 'space-around',
         alignItems: 'flex-start',
         flexDirection: 'column',
     },
     overallContainer: {
-        flex: 1,
+        paddingLeft: 30,
         justifyContent: 'space-around',
         alignItems: 'center',
     },
-    overallScore: {
-        fontSize: 45,
-    },
-
     smallText: {
         fontSize: 10,
-        color: '#B2BBD1',
+        color: colors.text,
     },
-   
-    green: {
-        color: '#4F9B51'
-    },
-    yellow: {
-        color: '#ECB02F'
-    },
-    red: {
-        color: '#C03221'
-    }
 });

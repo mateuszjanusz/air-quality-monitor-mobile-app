@@ -4,19 +4,20 @@ import {
     Text,
     View
 } from 'react-native';
-
+import colors from '../colors'
 
 class ScoreSmall extends Component {
     render = () => {
-        const { description, score, color, symbol, overall } = this.props;
+        const { description, score, symbol, overall } = this.props;
+        const color = colors.getColor(description.toLowerCase(), score)
 
         if(overall){
             return ( 
                 <View>
                     <Text style={styles.descriptionSmall}>{description}</Text>
                     <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                        <Text style={[styles.score, color]}>{overall}</Text>
-                        <Text style={[styles.scoreSmall, color]}>({score} {symbol})</Text>
+                        <Text style={[styles.score, {color: color}]}>{overall}</Text>
+                        <Text style={[styles.scoreSmall, {color: color}]}>({score} {symbol})</Text>
                     </View>
                 </View>
             );
@@ -25,7 +26,7 @@ class ScoreSmall extends Component {
         return ( 
             <View>
                 <Text style={styles.descriptionSmall}>{description}</Text>
-                <Text style={[styles.score, color]}>{score} {symbol}</Text>
+                <Text style={[styles.score, {color: color}]}>{score} {symbol}</Text>
             </View>
         );
     }
@@ -33,8 +34,8 @@ class ScoreSmall extends Component {
 
 const styles = StyleSheet.create({
     descriptionSmall: {
-        fontSize: 10,
-        color: '#B2BBD1',
+        fontSize: 12,
+        color: colors.text,
         marginTop: 8
     },
     score: {

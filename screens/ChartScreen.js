@@ -6,7 +6,8 @@ import {
     View,
     Picker
 } from 'react-native';
-import { LineChart } from 'react-native-svg-charts'
+
+import LineChart from '../components/LineChart';
 
 
 export default class ChartScreen extends Component {
@@ -36,7 +37,6 @@ export default class ChartScreen extends Component {
                             <Picker.Item label="Last 30 days" value="30" />
                     </Picker>
                 </View>
-
                 <Picker style={styles.picker}
                     selectedValue={this.state.top_chart_type}
                     onValueChange={(itemValue, itemIndex) => this.setState({top_chart_type: itemValue})}
@@ -45,7 +45,7 @@ export default class ChartScreen extends Component {
                         <Picker.Item label="Humidity" value="humidity" />
                         <Picker.Item label="Dust Density" value="dust" />
                 </Picker>
-
+                <LineChart type={this.state.top_chart_type} />
                 <Picker style={styles.picker}
                     selectedValue={this.state.bottom_chart_type}
                     onValueChange={(itemValue, itemIndex) => this.setState({bottom_chart_type: itemValue})}
@@ -54,6 +54,8 @@ export default class ChartScreen extends Component {
                         <Picker.Item label="Humidity" value="humidity" />
                         <Picker.Item label="Dust Density" value="dust" />
                 </Picker>
+                <LineChart type={this.state.bottom_chart_type} />
+
             </View>
         )
     }

@@ -4,16 +4,17 @@ import {
     Text,
     View
 } from 'react-native';
-
+import colors from '../colors'
 
 class ScoreMedium extends Component {
     render = () => {
-        const { description, score, color, symbol } = this.props;
+        const { description, score, symbol } = this.props;
+        const color = colors.getColor(description.toLowerCase(), score)
 
         return ( 
             <View style={{marginTop: 10}}>
                 <Text style={styles.description}>{description}</Text>
-                <Text style={[styles.score, color]}>{score}{symbol}</Text>
+                <Text style={[styles.score, {color: color}]}>{score}{symbol}</Text>
             </View>
         );
     }
@@ -21,12 +22,11 @@ class ScoreMedium extends Component {
 
 const styles = StyleSheet.create({
     description: {
-        fontSize: 15,
-        color: '#B2BBD1'
+        fontSize: 18,
+        color: colors.text
     },
     score: {
-        // color: '#FF590D',
-        fontSize: 20,
+        fontSize: 28,
     },
 })
 
