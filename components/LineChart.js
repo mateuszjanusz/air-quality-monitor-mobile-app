@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { LineChart, YAxis } from 'react-native-svg-charts'
-import {
-    View,
-} from 'react-native';
+import { View } from 'react-native';
 
 import colors from '../colors'
 
 class Chart extends React.Component {
     render() {
         const data = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80 ]
+        // const data = this.props.data
         const contentInset = { top: 20, bottom: 20 }
 
         return (
@@ -66,7 +65,6 @@ class Chart extends React.Component {
 
 
 }
-
 
 
 export default Chart;
