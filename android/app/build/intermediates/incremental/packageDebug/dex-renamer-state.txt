@@ -1,4 +1,4 @@
-#Sun Mar 18 15:42:03 GMT 2018
+#Fri Mar 30 22:29:40 BST 2018
 base.0=/Users/mateuszjanusz/Documents/University/air-quality-monitor-mobile-app/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
 renamed.0=classes.dex
 file.0=/Users/mateuszjanusz/Documents/University/air-quality-monitor-mobile-app/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
