@@ -144,7 +144,7 @@ class WeatherBlock extends Component {
 
         if(!this.state.pollution){ 
             return (
-                <View style={{flex: 1, paddingTop: 20, paddingBottom: 10}}>
+                <View style={{flex: 1, paddingTop: 10, paddingBottom: 10}}>
                     <TextInput
                         style={{fontSize: 18, color: colors.text, paddingLeft: 15, height: 40, borderWidth: 0,}}
                         onChangeText={(city) => this.setState({city})}
@@ -161,7 +161,7 @@ class WeatherBlock extends Component {
         }
 
         return (
-            <View style={{flex: 1, paddingTop: 20, paddingBottom: 3}}>
+            <View style={{flex: 1, paddingTop: 10, paddingBottom: 3}}>
                 <TextInput
                     style={{fontSize: 18, color: colors.text, paddingLeft: 15, height: 40, borderWidth: 0,}}
                     onChangeText={(city) => this.setState({city})}

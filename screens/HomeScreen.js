@@ -20,6 +20,9 @@ import ScoreSmall from '../components/ScoreSmall';
 import DateText from '../components/Date';
 import WeatherBlock from '../components/WeatherBlock';
 
+
+const {height, width} = Dimensions.get('window')
+
 async function getCurrentReadings() {
     try {
         let response = await fetch(
@@ -87,33 +90,34 @@ export default class HomeScreen extends Component {
         return (
             <View style={styles.container}>
                 <DateText date={this.state.today} />
-                <View style={styles.row}>
+                <View style={[styles.row,{justifyContent: 'flex-start', paddingLeft: 16}]}>
+                    <Text style={styles.smallText}>Last updated {last_updated}</Text>
+                </View>
+                <View style={[styles.row, {paddingTop: 15}]}>
                     <View style={styles.overallContainer}>
                         <ScoreCircle score={this.state.mega_score} />
                     </View>
-                    <View style={[styles.column, {justifyContent: 'space-between', paddingLeft: 30}]}>
-                        <ScoreMedium score={current.temp} description="Temperature" symbol="°C" />
-                        <ScoreMedium score={current.humidity} description="Humidity" symbol="%" />
+                    <View style={[styles.column, {width: width/3, justifyContent: 'space-between'}]}>
+                        <ScoreMedium score={current.dust} description="Dust Density" symbol="mg/m3" />
                         <ScoreMedium score={current.pressure} description="Pressure" symbol="hPa" />
+                        <ScoreMedium score={current.smoke} description="Smoke" symbol="ppm" />
                     </View>
                 </View>
                 <View style={styles.row}>
-                    <View style={styles.column}>
-                        <ScoreSmall score={current.dust} description="Dust Density" symbol="mg/m3" />
-                        <ScoreSmall score={current.co} description="CO" symbol="ppm" />
+                    <View style={[styles.column, {width: width/2, paddingLeft: 15,}]}>
+                        <ScoreMedium score={current.temp} description="Temperature" symbol="°C" />
+                        <ScoreMedium score={current.humidity} description="Humidity" symbol="%" />
+
                     </View>
-                    <View style={styles.column}>
-                        <ScoreSmall score={current.smoke} description="Smoke" symbol="ppm" />
-                        <ScoreSmall score={current.lpg} description="LPG" symbol="ppm" />
+                    <View style={[styles.column, {width: width/3}]}>
+                        <ScoreMedium score={current.co} description="CO" symbol="ppm" />
+                        <ScoreMedium score={current.lpg} description="LPG" symbol="ppm" />
                     </View>
                 </View>
-                <View style={[styles.row,{paddingTop: 15}]}>
-                    <Text style={styles.smallText}>Last updated {last_updated}</Text>
-                </View>
+                
                 <View style={styles.row}>
                     <WeatherBlock />
                 </View>
-                
             </View>
         )
     }
@@ -138,8 +142,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'flex-start',
         flexDirection: 'column',
+        paddingLeft: 10
     },
     overallContainer: {
+        width: width/2,
         paddingLeft: 30,
         justifyContent: 'space-around',
         alignItems: 'center',
