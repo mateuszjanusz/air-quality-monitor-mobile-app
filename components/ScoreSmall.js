@@ -11,7 +11,16 @@ class ScoreSmall extends Component {
         const { description, score, symbol, overall } = this.props;
         const color = colors.getColor(description.toLowerCase(), score)
 
-        if(overall){
+        if(!score && score != 0){
+            return ( 
+                <View>
+                    <Text style={styles.descriptionSmall}>{description}</Text>
+                    <Text style={[styles.score, {color: color}]}>no data</Text>
+                </View>
+            );
+        }
+
+        if(overall && score){
             return ( 
                 <View>
                     <Text style={styles.descriptionSmall}>{description}</Text>

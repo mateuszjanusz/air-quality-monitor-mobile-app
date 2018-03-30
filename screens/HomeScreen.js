@@ -9,7 +9,10 @@ import {
 } from 'react-native';
 
 import moment from 'moment'
+import _ from 'lodash'
+
 import colors from '../colors'
+import scores from '../scores'
 
 import ScoreCircle from '../components/ScoreCircle';
 import ScoreMedium from '../components/ScoreMedium';
@@ -29,19 +32,41 @@ async function getCurrentReadings() {
     }
 }
 
+function getMegaScore(readings) {
+    let mega_score = 100
+
+    _.forEach(readings, function (score, type) {
+        if(!isNaN(score)){
+            const score_index = scores.getScoreIndex(type, score)
+            if(score_index === 1){
+                mega_score -= 5
+            } else if(score_index === 0){
+                mega_score -= 10
+            }
+        }
+    })
+
+    return mega_score
+}
+
 
 export default class HomeScreen extends Component {
     constructor(props) {
         super(props)
-        this.state = {};
+        this.state = {
+            mega_score: 100
+        };
     }
 
     async componentDidMount(){
-        const current = await getCurrentReadings()
+        const current_readings = await getCurrentReadings()
+        const mega_score = await getMegaScore(current_readings)
+
         const today = moment().format('dddd, Do MMMM')
 
         this.setState({
-            current,
+            current: current_readings,
+            mega_score,
             today
         }) 
     }
@@ -64,7 +89,7 @@ export default class HomeScreen extends Component {
                 <DateText date={this.state.today} />
                 <View style={styles.row}>
                     <View style={styles.overallContainer}>
-                        <ScoreCircle score={75} />
+                        <ScoreCircle score={this.state.mega_score} />
                     </View>
                     <View style={[styles.column, {justifyContent: 'space-between', paddingLeft: 30}]}>
                         <ScoreMedium score={current.temp} description="Temperature" symbol="°C" />

@@ -7,17 +7,21 @@ import {
 
 import { ProgressCircle }  from 'react-native-svg-charts'
 
+import colors from '../colors'
+
+
 class ScoreCircle extends Component {
     render() {
+        const mega_score = this.props.score
     	const {height, width} = Dimensions.get('window')
-    	const color = '#ECB02F'
+    	const color = colors.getColor('mega-score', mega_score)
 
         return (
         	<View style={{justifyContent: 'center', alignItems: 'center',}}>
-                <Text style={{color: color, fontSize:30}}>{this.props.score}</Text>
+                <Text style={{color: color, fontSize:30}}>{mega_score}</Text>
 	            <ProgressCircle
 	                style={ { height: height/2.5, width: width/2.5, position: 'absolute'} }
-	                progress={this.props.score/100}
+	                progress={mega_score/100}
 	                progressColor={color}
 	                backgroundColor={'#1d252d'}
 	                strokeWidth={4}

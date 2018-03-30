@@ -37,6 +37,10 @@ const colors = {
 
 			return this.light_blue
 
+		} else if (type.includes('mega-score')){
+			if(score > 90) return this.green
+			else if(score > 70) return this.orange
+			else return this.red
 		}
 
 
