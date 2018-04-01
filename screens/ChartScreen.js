@@ -50,8 +50,6 @@ async function getLastMonthReadings() {
 }
 
 
-
-
 export default class ChartScreen extends Component {
     constructor(props) {
         super(props)

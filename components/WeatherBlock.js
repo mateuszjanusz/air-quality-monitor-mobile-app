@@ -8,9 +8,10 @@ import {
 
 import ScoreSmall from './ScoreSmall';
 import colors from '../colors'
+import config from '../config'
 
-const openweathermap_key = 'e0556e897398dba1c28f1d87c296fb30'
-const google_key = 'AIzaSyAgav7ozPXB6VRQh6txn1pPFN3YwRBtLvI'
+const openweathermap_key = config.openweathermap_key
+const google_key = config.google_key
 
 async function getCurrentWeather(location) {
     try {
