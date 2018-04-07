@@ -95,12 +95,12 @@ export default class HomeScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <KeyboardAvoidingView behavior="padding" style={{flex:1}} keyboardVerticalOffset={50}>
+                <KeyboardAvoidingView behavior="padding">
                     <DateText date={this.state.today} />
                     <View style={[styles.row,{justifyContent: 'flex-start', paddingLeft: 16, paddingTop: 5 }]}>
                         <Text style={styles.smallText}>Last updated {last_updated}</Text>
                     </View>
-                    <View style={[styles.row, {paddingTop: 15}]}>
+                    <View style={[styles.row, {paddingTop: 20}]}>
                         <View style={styles.overallContainer}>
                             <ScoreCircle score={this.state.mega_score} />
                         </View>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 20,
         padding: 10,
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         // alignItems: 'center',
         backgroundColor: colors.background,
     },

@@ -18,12 +18,12 @@ class ScoreCircle extends Component {
 
         return (
         	<View style={{justifyContent: 'center', alignItems: 'center',}}>
-                <Text style={{color: color, fontSize:30}}>{mega_score}</Text>
+                <Text style={{color: color, fontSize:35}}>{mega_score}</Text>
 	            <ProgressCircle
 	                style={ { height: height/3, width: width/3, position: 'absolute'} }
 	                progress={mega_score/100}
 	                progressColor={color}
-	                backgroundColor={'#1d252d'}
+	                backgroundColor={colors.tabBarBackground}
 	                strokeWidth={4}
 	            />
 	        </View>

@@ -88,7 +88,7 @@ async function getLocationData(location) {
         getCurrentWeather(location),
         getCoordinates(location)
     ])
-
+    console.log(current_weather)
     if(coordinates){
         pollution = await getCurrentPollution(coordinates)
     }
@@ -143,9 +143,9 @@ class WeatherBlock extends Component {
             )
         } 
 
-        if(!this.state.pollution){ 
+        // if(!this.state.pollution){ 
             return (
-                <View style={{flex: 1, paddingTop: 15, paddingBottom: 10}}>
+                <View style={{flex: 1, paddingTop: 35, paddingBottom: 10}}>
                     <TextInput
                         style={{fontSize: 18, color: colors.text, paddingLeft: 15, height: 40, borderWidth: 0,}}
                         onChangeText={(city) => this.setState({city})}
@@ -159,32 +159,32 @@ class WeatherBlock extends Component {
                     </View>
                 </View>
             )
-        }
+        // }
 
-        return (
-            <View style={{flex: 1, paddingTop: 15, paddingBottom: 3}}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TextInput
-                        style={{fontSize: 18, color: colors.text, paddingLeft: 15,  borderWidth: 0,}}
-                        onChangeText={(city) => this.setState({city})}
-                        onSubmitEditing={(event) => this.updateLocation( event.nativeEvent.text )}
-                        value={this.state.city}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                    />    
-                    <Text style={{fontSize: 18, color: colors.text,}}>Weather</Text>
-                </View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-                    <ScoreSmall score={this.state.weather.temp} description="Temperature" symbol="°C"/>
-                    <ScoreSmall score={this.state.weather.humidity} description="Humidity" symbol="%"/>
-                    <ScoreSmall score={this.state.weather.pressure} description="Air Pressure" symbol="hPa"/>
-                </View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-                    <ScoreSmall score={this.state.pollution.co} description="CO" symbol="ppm"/>
-                    <ScoreSmall score={this.state.pollution.no2} description="NO2" symbol="ppm"/>
-                    <ScoreSmall score={this.state.pollution.so2} description="SO2" symbol="ppm"/>
-                </View>
-            </View>
-        )
+        // return (
+        //     <View style={{flex: 1, paddingTop: 15, paddingBottom: 3}}>
+        //         <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        //             <TextInput
+        //                 style={{fontSize: 18, color: colors.text, paddingLeft: 15,  borderWidth: 0,}}
+        //                 onChangeText={(city) => this.setState({city})}
+        //                 onSubmitEditing={(event) => this.updateLocation( event.nativeEvent.text )}
+        //                 value={this.state.city}
+        //                 underlineColorAndroid='rgba(0,0,0,0)'
+        //             />    
+        //             <Text style={{fontSize: 18, color: colors.text,}}>Weather</Text>
+        //         </View>
+        //         <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+        //             <ScoreSmall score={this.state.weather.temp} description="Temperature" symbol="°C"/>
+        //             <ScoreSmall score={this.state.weather.humidity} description="Humidity" symbol="%"/>
+        //             <ScoreSmall score={this.state.weather.pressure} description="Air Pressure" symbol="hPa"/>
+        //         </View>
+        //         <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+        //             <ScoreSmall score={this.state.pollution.co} description="CO" symbol="ppm"/>
+        //             <ScoreSmall score={this.state.pollution.no2} description="NO2" symbol="ppm"/>
+        //             <ScoreSmall score={this.state.pollution.so2} description="SO2" symbol="ppm"/>
+        //         </View>
+        //     </View>
+        // )
     }
 
 }

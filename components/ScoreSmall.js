@@ -48,13 +48,13 @@ class ScoreSmall extends Component {
 
 const styles = StyleSheet.create({
     descriptionSmall: {
-        fontSize: 12,
+        fontSize: 14,
         color: colors.darktext,
         marginTop: 3
     },
     score: {
         paddingTop: 10,
-        fontSize: 15,
+        fontSize: 17,
     },
     scoreSmall: {
         paddingTop: 5,

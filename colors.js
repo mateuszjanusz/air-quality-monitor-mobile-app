@@ -1,6 +1,6 @@
 const colors = {
-	background: '#2C2E38',
-	tabBarBackground: '#1d252d',
+	tabBarBackground: '#2C2E38',
+	background: '#1d252d',
 	green: '#56af59',
 	orange: '#ECB02F',
 	red:  '#C03221',
