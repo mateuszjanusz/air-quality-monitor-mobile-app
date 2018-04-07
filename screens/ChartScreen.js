@@ -86,47 +86,49 @@ export default class ChartScreen extends Component {
     }
 
     render() {
-        if(!this.state.readings){
+        if(this.state.readings){
             return (
-                <View style={[styles.container, {justifyContent: 'center'}]}>
-                    <ActivityIndicator size="large" color={colors.text} />
+                <View style={styles.container}>
+
+                    <Picker style={styles.picker}
+                        selectedValue={this.state.time_frame}
+                        onValueChange={(itemValue, itemIndex) => this.setState({time_frame: itemValue})}
+                        >
+                            <Picker.Item label="Today" value={1} />
+                            <Picker.Item label="Last 7 days" value={7} />
+                            <Picker.Item label="Last 30 days" value={30} />
+                    </Picker>
+
+                    <Picker style={styles.picker}
+                        selectedValue={this.state.top_chart_type}
+                        onValueChange={(itemValue, itemIndex) => this.setState({top_chart_type: itemValue})}
+                        >
+                            <Picker.Item label="Temperature" value="temp" />
+                            <Picker.Item label="Humidity" value="humidity" />
+                            <Picker.Item label="Dust Density" value="dust" />
+                    </Picker>
+                    <LineChart type={this.state.top_chart_type} readings={this.state.top_chart_readings} />
+                    <Picker style={styles.picker}
+                        selectedValue={this.state.bottom_chart_type}
+                        onValueChange={(itemValue, itemIndex) => this.setState({bottom_chart_type: itemValue})}
+                        >
+                            <Picker.Item label="Temperature" value="temp" />
+                            <Picker.Item label="Humidity" value="humidity" />
+                            <Picker.Item label="Dust Density" value="dust" />
+                    </Picker>
+                    <LineChart type={this.state.bottom_chart_type} readings={this.state.bottom_chart_readings} />
+
                 </View>
-            )
+            )    
         }
 
+
         return (
-            <View style={styles.container}>
-
-                <Picker style={styles.picker}
-                    selectedValue={this.state.time_frame}
-                    onValueChange={(itemValue, itemIndex) => this.setState({time_frame: itemValue})}
-                    >
-                        <Picker.Item label="Today" value={1} />
-                        <Picker.Item label="Last 7 days" value={7} />
-                        <Picker.Item label="Last 30 days" value={30} />
-                </Picker>
-
-                <Picker style={styles.picker}
-                    selectedValue={this.state.top_chart_type}
-                    onValueChange={(itemValue, itemIndex) => this.setState({top_chart_type: itemValue})}
-                    >
-                        <Picker.Item label="Temperature" value="temp" />
-                        <Picker.Item label="Humidity" value="humidity" />
-                        <Picker.Item label="Dust Density" value="dust" />
-                </Picker>
-                <LineChart type={this.state.top_chart_type} readings={this.state.top_chart_readings} />
-                <Picker style={styles.picker}
-                    selectedValue={this.state.bottom_chart_type}
-                    onValueChange={(itemValue, itemIndex) => this.setState({bottom_chart_type: itemValue})}
-                    >
-                        <Picker.Item label="Temperature" value="temp" />
-                        <Picker.Item label="Humidity" value="humidity" />
-                        <Picker.Item label="Dust Density" value="dust" />
-                </Picker>
-                <LineChart type={this.state.bottom_chart_type} readings={this.state.bottom_chart_readings} />
-
+            <View style={[styles.container, {justifyContent: 'center'}]}>
+                <ActivityIndicator size="large" color={colors.text} />
             </View>
         )
+        
     }
 
     async componentWillUpdate(new_props, new_state){

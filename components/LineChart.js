@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { LineChart, YAxis } from 'react-native-svg-charts'
 import { View } from 'react-native';
-
+import * as shape from 'd3-shape'
 import colors from '../colors'
 
 class Chart extends React.Component {
     render() {
         const data = this.props.readings
-        const contentInset = { top: 20, bottom: 20 }
+        const contentInset = { top: 20, bottom: 20,}
 
         return (
             <View style={ { height: 200, flexDirection: 'row' } }>
@@ -18,17 +18,26 @@ class Chart extends React.Component {
                       fill: 'grey',
                       fontSize: 10,
                   }}
-                  formatLabel={ value => value + this.getSuffix(this.props.type) }
+                  formatLabel={
+                    (value, index) => {
+                        if(index % 2 === 0){
+                            return value + this.getSuffix(this.props.type)
+                        }
+                        return ''
+                    }
+                  }
                 />
                 <LineChart
                     style={ { flex: 1, marginLeft: 16 } }
                     data={data}
                     svg={{ stroke: this.getColor(this.props.type) }}
                     contentInset={ contentInset }
+                    curve={shape.curveNatural}
                 />
             </View>
         )
     }
+
 
     getSuffix(type){
         switch(type) {

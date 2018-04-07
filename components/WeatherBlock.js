@@ -145,13 +145,13 @@ class WeatherBlock extends Component {
 
         if(!this.state.pollution){ 
             return (
-                <View style={{flex: 1, paddingTop: 10, paddingBottom: 10}}>
+                <View style={{flex: 1, paddingTop: 15, paddingBottom: 10}}>
                     <TextInput
                         style={{fontSize: 18, color: colors.text, paddingLeft: 15, height: 40, borderWidth: 0,}}
                         onChangeText={(city) => this.setState({city})}
                         value={this.state.city}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                    />    
+                    />   
                     <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
                         <ScoreSmall score={this.state.weather.temp} description="Temperature" symbol="°C"/>
                         <ScoreSmall score={this.state.weather.humidity} description="Humidity" symbol="%"/>
@@ -162,14 +162,17 @@ class WeatherBlock extends Component {
         }
 
         return (
-            <View style={{flex: 1, paddingTop: 10, paddingBottom: 3}}>
-                <TextInput
-                    style={{fontSize: 18, color: colors.text, paddingLeft: 15, height: 40, borderWidth: 0,}}
-                    onChangeText={(city) => this.setState({city})}
-                    onSubmitEditing={(event) => this.updateLocation( event.nativeEvent.text )}
-                    value={this.state.city}
-                    underlineColorAndroid='rgba(0,0,0,0)'
-                />    
+            <View style={{flex: 1, paddingTop: 15, paddingBottom: 3}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <TextInput
+                        style={{fontSize: 18, color: colors.text, paddingLeft: 15,  borderWidth: 0,}}
+                        onChangeText={(city) => this.setState({city})}
+                        onSubmitEditing={(event) => this.updateLocation( event.nativeEvent.text )}
+                        value={this.state.city}
+                        underlineColorAndroid='rgba(0,0,0,0)'
+                    />    
+                    <Text style={{fontSize: 18, color: colors.text,}}>Weather</Text>
+                </View>
                 <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
                     <ScoreSmall score={this.state.weather.temp} description="Temperature" symbol="°C"/>
                     <ScoreSmall score={this.state.weather.humidity} description="Humidity" symbol="%"/>

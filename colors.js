@@ -1,5 +1,6 @@
 const colors = {
 	background: '#2C2E38',
+	tabBarBackground: '#1d252d',
 	green: '#56af59',
 	orange: '#ECB02F',
 	red:  '#C03221',
@@ -7,6 +8,7 @@ const colors = {
 	light_blue: '#1B9AAA',
 	beige: '#F8FFE5',
 	text: '#B2BBD1',
+	darktext: '#515568',
 
 	getColor: function(type, score){
 		if(type.includes('temperature')){

@@ -4,6 +4,8 @@ import { TabNavigator } from 'react-navigation';
 import HomeScreen from './screens/HomeScreen';
 import ChartScreen from './screens/ChartScreen';
 
+import colors from './colors'
+
 
 export default TabNavigator(
     {
@@ -17,7 +19,7 @@ export default TabNavigator(
         Chart: { 
             screen: ChartScreen,
             navigationOptions: {
-                tabBarLabel: 'Charts',
+                tabBarLabel: 'Changelog',
                 // tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />
             },
         },
@@ -26,7 +28,7 @@ export default TabNavigator(
         initialRouteName: 'Home',
         tabBarOptions: {
             style: {
-                backgroundColor: '#1d252d',
+                backgroundColor: colors.tabBarBackground,
             },
         },
     }

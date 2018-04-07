@@ -5,7 +5,9 @@ import {
     StyleSheet,
     Text,
     View,
-    ActivityIndicator
+    Image,
+    ActivityIndicator,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import moment from 'moment'
@@ -78,7 +80,11 @@ export default class HomeScreen extends Component {
 
         if(!this.state.current){
             return (
-                <View style={[styles.container, {justifyContent: 'center'}]}>
+                <View style={[styles.container, {justifyContent: 'space-around', alignItems: 'center'}]}>
+                    <Image
+                        style={{width: 150, height: 150}}
+                        source={require('../img/ic_launcher.png')}
+                    />
                     <ActivityIndicator size="large" color={colors.text} />
                 </View>
             )
@@ -89,35 +95,37 @@ export default class HomeScreen extends Component {
 
         return (
             <View style={styles.container}>
-                <DateText date={this.state.today} />
-                <View style={[styles.row,{justifyContent: 'flex-start', paddingLeft: 16}]}>
-                    <Text style={styles.smallText}>Last updated {last_updated}</Text>
-                </View>
-                <View style={[styles.row, {paddingTop: 15}]}>
-                    <View style={styles.overallContainer}>
-                        <ScoreCircle score={this.state.mega_score} />
+                <KeyboardAvoidingView behavior="padding" style={{flex:1}} keyboardVerticalOffset={50}>
+                    <DateText date={this.state.today} />
+                    <View style={[styles.row,{justifyContent: 'flex-start', paddingLeft: 16, paddingTop: 5 }]}>
+                        <Text style={styles.smallText}>Last updated {last_updated}</Text>
                     </View>
-                    <View style={[styles.column, {width: width/3, justifyContent: 'space-between'}]}>
-                        <ScoreMedium score={current.dust} description="Dust Density" symbol="mg/m3" />
-                        <ScoreMedium score={current.pressure} description="Pressure" symbol="hPa" />
-                        <ScoreMedium score={current.smoke} description="Smoke" symbol="ppm" />
+                    <View style={[styles.row, {paddingTop: 15}]}>
+                        <View style={styles.overallContainer}>
+                            <ScoreCircle score={this.state.mega_score} />
+                        </View>
+                        <View style={[styles.column, {width: width/3, justifyContent: 'space-between'}]}>
+                            <ScoreMedium score={current.dust} description="Dust Density" symbol="mg/m3" />
+                            <ScoreMedium score={current.pressure} description="Pressure" symbol="hPa" />
+                            <ScoreMedium score={current.smoke} description="Smoke" symbol="ppm" />
+                        </View>
                     </View>
-                </View>
-                <View style={styles.row}>
-                    <View style={[styles.column, {width: width/2, paddingLeft: 15,}]}>
-                        <ScoreMedium score={current.temp} description="Temperature" symbol="°C" />
-                        <ScoreMedium score={current.humidity} description="Humidity" symbol="%" />
+                    <View style={styles.row}>
+                        <View style={[styles.column, {width: width/3, paddingLeft: 15,}]}>
+                            <ScoreMedium score={current.temp} description="Temperature" symbol="°C" />
+                            <ScoreMedium score={current.humidity} description="Humidity" symbol="%" />
 
+                        </View>
+                        <View style={[styles.column, {width: width/3}]}>
+                            <ScoreMedium score={current.co} description="CO" symbol="ppm" />
+                            <ScoreMedium score={current.lpg} description="LPG" symbol="ppm" />
+                        </View>
                     </View>
-                    <View style={[styles.column, {width: width/3}]}>
-                        <ScoreMedium score={current.co} description="CO" symbol="ppm" />
-                        <ScoreMedium score={current.lpg} description="LPG" symbol="ppm" />
+                    
+                    <View style={styles.row}>
+                        <WeatherBlock />
                     </View>
-                </View>
-                
-                <View style={styles.row}>
-                    <WeatherBlock />
-                </View>
+                </KeyboardAvoidingView>
             </View>
         )
     }
@@ -145,7 +153,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10
     },
     overallContainer: {
-        width: width/2,
+        width: width/3,
         paddingLeft: 30,
         justifyContent: 'space-around',
         alignItems: 'center',
